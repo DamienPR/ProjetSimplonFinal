@@ -6,7 +6,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -28,6 +27,6 @@ public class Session {
 	@NotBlank(message = "Name can't empty!")
 	private Date date_fin;
 			
-	@ManyToOne
-	private Promo promo;
+//	@ManyToOne
+//	private Promo promo;
 }

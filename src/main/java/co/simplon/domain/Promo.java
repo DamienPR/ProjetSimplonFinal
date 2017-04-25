@@ -1,13 +1,11 @@
 package co.simplon.domain;
 
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -30,10 +28,10 @@ public class Promo {
 		@NotBlank(message = "Name can't empty!")
 		private Date date_fin;
 				
-		@OneToMany(mappedBy = "promo")
-		private List <Session> sessions;
+//		@OneToMany(mappedBy = "promo")
+//		private List <Session> sessions;
 		
-		@OneToMany(mappedBy = "promo")
-		private List <Evenement> evenements;
+//		@OneToMany(mappedBy = "promo")
+//		private List <Evenement> evenements;
 		
 }

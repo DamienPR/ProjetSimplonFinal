@@ -10,11 +10,11 @@ import co.simplon.domain.Role;
 public interface RoleDao extends CrudRepository<Role, Long> {
 	
 	//Grace a jpa, lit la methode, find = select where nom = ??, pas besoin de decrire la methode dans une classe
-	public Role findByNom(String nom);
+	public Role findByName(String name);
 	public void deleteById(long id);
 	
 	//Permet de creer des methodes non comprise par Hibernate
-	@Query("select nom from Role")
-	public List<String> findNom();
+	@Query("select name from Role")
+	public List<String> findName();
 	
 }

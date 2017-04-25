@@ -19,7 +19,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import co.simplon.dao.TypeDao;
+import co.simplon.dao.UtilisateurDao;
 import co.simplon.domain.Role;
 import co.simplon.domain.Utilisateur;
 
@@ -28,7 +28,7 @@ import co.simplon.domain.Utilisateur;
 public class WebSecurityConfiguration extends GlobalAuthenticationConfigurerAdapter {
 	
 	@Autowired
-	TypeDao dao;
+	UtilisateurDao dao;
 	
 	@Override
 	public void init(AuthenticationManagerBuilder auth) throws Exception {
@@ -43,13 +43,13 @@ public class WebSecurityConfiguration extends GlobalAuthenticationConfigurerAdap
 			@Transactional
 			
 			@Override
-			public UserDetails loadUserByUsername(String nom) throws UsernameNotFoundException {
-				Utilisateur account = dao.findByNom(nom);
+			public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
+				Utilisateur account = dao.findByUsername(name);
 				if(account != null) {
-					return new User(account.getNom(), account.getMot_de_passe(), true, true, true, true,
+					return new User(account.getUsername(), account.getPassword(), true, true, true, true,
 							getAuthorities(account.getRoles()));
 				} else {
-					throw new UsernameNotFoundException ("Impossible de trouver l'utilisateur :"+ nom +".");
+					throw new UsernameNotFoundException ("Impossible de trouver l'utilisateur :"+ name +".");
 				}
 			}
 		};
@@ -60,7 +60,7 @@ public class WebSecurityConfiguration extends GlobalAuthenticationConfigurerAdap
 		String ROLE_PREFIX = "ROLE_";
         List<GrantedAuthority> list = new ArrayList<GrantedAuthority>();
         for(Role role: roles){
-        list.add(new SimpleGrantedAuthority(ROLE_PREFIX + role.getNom()));
+        list.add(new SimpleGrantedAuthority(ROLE_PREFIX + role.getName()));
         }
         return list;
     }

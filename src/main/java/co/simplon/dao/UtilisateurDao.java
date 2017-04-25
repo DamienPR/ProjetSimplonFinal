@@ -7,14 +7,14 @@ import org.springframework.data.repository.CrudRepository;
 
 import co.simplon.domain.Utilisateur;
 
-public interface TypeDao extends CrudRepository<Utilisateur, Long> {
+public interface UtilisateurDao extends CrudRepository<Utilisateur, Long> {
 	
-	public Utilisateur findByNom(String nom);
+	public Utilisateur findByUsername(String username);
 	public Iterable<Utilisateur> findByRolesId(long id);
-	public void deleteByNom(String nom);
+	public void deleteByUsername(String username);
 	
 	//Permet de creer des methodes non comprise par Hibernate
-	@Query("select nom from Utilisateur")
-	public List<String> findNom();
+	@Query("select username from Utilisateur")
+	public List<String> findUsername();
 	
 }

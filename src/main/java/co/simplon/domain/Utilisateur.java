@@ -12,38 +12,34 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
-import org.hibernate.validator.constraints.NotBlank;
-
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import lombok.Getter;
 import lombok.Setter;
-
+//Lombok pour creer auto les getter/setter
 @Getter
 @Setter
-
+//Dit a hibernate que ca correspond a une table
 @Entity
-
+//Evite de boucler à l'infini dans manyTomany
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+//@Table ( si nom different de table name ="" )
 public class Utilisateur {
-
+	
+	//Cle primaire
 	@Id
+	//Previent que la cle est genere  automatiquement
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
 	
-	@NotBlank(message = "Type can't empty!")
-	private String nom;
+	private String username;
+		
+	private String password;
 	
-	@NotBlank(message = "Type can't empty!")
-	private String prenom;
-	
-	@NotBlank(message = "Type can't empty!")
-	private String mot_de_passe;
-	
-	private String mail_perso;
-	
-	private String mail_responsable;
+// Methode utile pour integrer la derniere maj	
+// @UpdateTimestamp
+// private Timestamp derniereMaj;
 	
 	//Entité Maitre
 	
@@ -52,7 +48,8 @@ public class Utilisateur {
 	@JoinTable(name="utilisateur_role", joinColumns = {
 			@JoinColumn(name = "utilisateur_id")},inverseJoinColumns = {@JoinColumn(name ="role_id")
 			})
-	//@JsonManagedReference
+//	@JsonManagedReference
 	private List <Role> roles ;
-	
+//	@ManyToOne
+//	private Role role;
 }
