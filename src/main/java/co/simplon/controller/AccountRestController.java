@@ -13,6 +13,7 @@ import co.simplon.service.UtilisateurService;
 
 @RestController
 @RequestMapping("/apprenant")
+//@PreAuthorize("hasRole('ROLE_apprenant','ROLE_tuteur')")
 public class AccountRestController {     
 
 	  @Autowired
@@ -20,9 +21,8 @@ public class AccountRestController {
 	  private UtilisateurService service;
 	  
 	  //@RequestMapping(method=RequestMethod.GET)
-	  @PreAuthorize("hasRole('ROLE_apprenant')")
+	  @PreAuthorize("hasRole('ROLE_formateur')")
 	  @GetMapping
-
 	  public List<Utilisateur> getAll() {
 		    return service.findAll();
 		  }
