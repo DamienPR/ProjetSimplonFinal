@@ -14,7 +14,7 @@ public interface RoleDao extends CrudRepository<Role, Long> {
 	public void deleteById(long id);
 	
 	//Permet de creer des methodes non comprise par Hibernate
-	@Query("select name from Role")
+	@Query("select `name` from Role")
 	public List<String> findName();
 	
 }
