@@ -3,6 +3,7 @@ package co.simplon.usersservice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import co.simplon.userdto.RoleDto;
 import co.simplon.users.Role;
 import co.simplon.usersdao.RoleDao;
 
@@ -25,14 +26,10 @@ public class RoleService {
 		return dao.save(role);
 	}
 	
-//	public List<Role> findList(List<Role> listRole) {
-//		List <Role> roleList = new ArrayList<>();
-//		for (Role role2 :listRole){
-//			Role role = new Role();
-//				role.setId(role2.getId());
-//				role.setName(role2.getName());
-//				roleList.add(role);}
-//		return roleList;
-//	}
-	
+	public RoleDto descripRole(Role role) {
+		RoleDto roledto = new RoleDto();
+		roledto.setId(role.getId());
+		roledto.setName(role.getName());
+		return roledto;
+	}
 }

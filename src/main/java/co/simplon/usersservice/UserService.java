@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import co.simplon.userdto.UserDto;
 import co.simplon.users.User;
 import co.simplon.usersdao.UserDao;
 
@@ -15,14 +16,18 @@ public class UserService {
 	@Autowired 
 	
 	private UserDao dao;
-		
-	public List<User> findAll () {
-		List <User> accountList = new ArrayList<>();
+	
+	public List<UserDto> findAll () {
+		List <UserDto> accountList = new ArrayList<>();
 		Iterable <User> findall = dao.findAll();
+		RoleService roleservice = new RoleService();
 		for (User account2: findall) {
-			User account= new User();
+			UserDto account= new UserDto();
 				account.setId(account2.getId());
-//				account.setRole(account2.getRole());
+				account.setFirstname(account2.getFirstname());
+				account.setLastname(account2.getLastname());
+				account.setPersomail(account2.getPersomail());
+				account.setRoledto(roleservice.descripRole(account2.getRole()));
 				accountList.add(account);
 		}
 		return accountList;

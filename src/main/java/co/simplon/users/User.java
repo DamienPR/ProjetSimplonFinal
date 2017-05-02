@@ -20,9 +20,9 @@ import lombok.Setter;
 @Setter
 //Dit a hibernate que ca correspond a une table
 @Entity
+//@Table ( si nom different de table name ="" )
 //Evite de boucler à l'infini dans manyTomany
 //@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-//@Table ( si nom different de table name ="" )
 public class User {
 	
 	//Cle primaire
@@ -64,7 +64,7 @@ public class User {
 	
 	@OneToMany(mappedBy="user")
 	private List<Answer> answers;
-	
+
 	@OneToMany(mappedBy="user")
 	private List<Conclusion> conclusions;
 }

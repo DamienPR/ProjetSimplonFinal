@@ -26,8 +26,8 @@ public class Role {
 	private String name;
 	
 	//Entité esclave lié par List <Role> roles
-	//@ManyToMany(mappedBy = "roles")
 	//@JsonBackReference
+	//@ManyToMany(mappedBy = "roles")
 	
 	@OneToMany(mappedBy="role")
 	private List <User> users;

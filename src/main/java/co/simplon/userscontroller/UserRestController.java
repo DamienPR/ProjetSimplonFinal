@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import co.simplon.users.User;
+import co.simplon.userdto.UserDto;
 import co.simplon.usersservice.UserService;
 
 @RestController
@@ -22,7 +22,7 @@ public class UserRestController {
 	  //@RequestMapping(method=RequestMethod.GET)
 	  //@PreAuthorize("hasRole('ROLE_formateur')")
 	  @GetMapping
-	  public List<User> getAll() {
+	  public List<UserDto> getAll() {
 		    return service.findAll();
 		  }
 	  
