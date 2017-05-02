@@ -19,16 +19,17 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import co.simplon.dao.UtilisateurDao;
-import co.simplon.domain.Role;
-import co.simplon.domain.Utilisateur;
+import co.simplon.users.Role;
+import co.simplon.usersservice.UserService;
+
+
 
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class WebSecurityConfiguration extends GlobalAuthenticationConfigurerAdapter {
+public class AuthSecurityConfiguration extends GlobalAuthenticationConfigurerAdapter {
 	
 	@Autowired
-	UtilisateurDao dao;
+	UserService service;
 	
 	@Override
 	public void init(AuthenticationManagerBuilder auth) throws Exception {
@@ -43,25 +44,23 @@ public class WebSecurityConfiguration extends GlobalAuthenticationConfigurerAdap
 			@Transactional
 			
 			@Override
-			public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
-				Utilisateur account = dao.findByUsername(name);
+			public UserDetails loadUserByUsername(String persomail) throws UsernameNotFoundException {
+				co.simplon.users.User account = service.findbyPersomail(persomail);
 				if(account != null) {
-					return new User(account.getUsername(), account.getPassword(), true, true, true, true,
-							getAuthorities(account.getRoles()));
+					return new User(account.getPassword(), account.getPassword(), true, true, true, true,
+							getAuthorities(account.getRole()));
 				} else {
-					throw new UsernameNotFoundException ("Impossible de trouver l'utilisateur :"+ name +".");
+					throw new UsernameNotFoundException ("Impossible de trouver le compte :"+ persomail +".");
 				}
 			}
 		};
 	}
 	
 	//Creation d'un collection d'autorisation a partir d'une liste de role
-	public Collection<? extends GrantedAuthority> getAuthorities(List<Role> roles) {
+	public Collection<? extends GrantedAuthority> getAuthorities(Role role) {
 		String ROLE_PREFIX = "ROLE_";
         List<GrantedAuthority> list = new ArrayList<GrantedAuthority>();
-        for(Role role: roles){
         list.add(new SimpleGrantedAuthority(ROLE_PREFIX + role.getName()));
-        }
         return list;
     }
 }
