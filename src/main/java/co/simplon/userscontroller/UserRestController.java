@@ -1,29 +1,28 @@
-package co.simplon.controller;
+package co.simplon.userscontroller;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import co.simplon.domain.Utilisateur;
-import co.simplon.service.UtilisateurService;
+import co.simplon.users.User;
+import co.simplon.usersservice.UserService;
 
 @RestController
-@RequestMapping("/apprenant")
+@RequestMapping("/users")
 //@PreAuthorize("hasRole('ROLE_apprenant','ROLE_tuteur')")
-public class AccountRestController {     
+public class UserRestController {     
 
 	  @Autowired
 	  
-	  private UtilisateurService service;
+	  private UserService service;
 	  
 	  //@RequestMapping(method=RequestMethod.GET)
-	  @PreAuthorize("hasRole('ROLE_formateur')")
+	  //@PreAuthorize("hasRole('ROLE_formateur')")
 	  @GetMapping
-	  public List<Utilisateur> getAll() {
+	  public List<User> getAll() {
 		    return service.findAll();
 		  }
 	  
